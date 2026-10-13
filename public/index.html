@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Realtime Chat</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <!-- Step 1: pick a display name (sends the `hello` frame) -->
+  <section id="login" class="login">
+    <form id="login-form" class="card">
+      <h1>Realtime Chat</h1>
+      <p class="muted">A small WebSocket chat. Open two tabs to see presence and typing.</p>
+      <label for="name">Display name</label>
+      <input id="name" maxlength="24" autocomplete="off" placeholder="e.g. Alice" required />
+      <button type="submit">Connect</button>
+      <p id="login-status" class="status" role="status"></p>
+    </form>
+  </section>
+
+  <!-- Step 2: the chat UI -->
+  <main id="app" class="app" hidden>
+    <aside class="sidebar">
+      <div class="me">
+        <span class="dot" id="conn-dot"></span>
+        <span id="me-name"></span>
+      </div>
+
+      <h2>Rooms</h2>
+      <ul id="room-list" class="list"></ul>
+      <form id="join-form" class="join">
+        <input id="join-input" placeholder="join a room…" pattern="[a-z0-9][a-z0-9\-]{0,31}"
+               title="lowercase letters, digits and dashes" autocomplete="off" />
+        <button type="submit" aria-label="Join room">+</button>
+      </form>
+
+      <h2>Online here</h2>
+      <ul id="member-list" class="list members"></ul>
+    </aside>
+
+    <section class="chat">
+      <header class="chat-header">
+        <h2 id="room-title"># general</h2>
+        <button id="leave-btn" class="ghost">Leave</button>
+      </header>
+      <ol id="messages" class="messages" aria-live="polite"></ol>
+      <p id="typing" class="typing"></p>
+      <form id="send-form" class="composer">
+        <input id="send-input" maxlength="2000" autocomplete="off" placeholder="Message" />
+        <button type="submit">Send</button>
+      </form>
+      <p id="toast" class="toast" role="alert" hidden></p>
+    </section>
+  </main>
+
+  <script src="/client.js"></script>
+</body>
+</html>

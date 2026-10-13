@@ -1,0 +1,109 @@
+:root {
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --sidebar: #16202e;
+  --sidebar-text: #c9d3e0;
+  --sidebar-muted: #7d8a9c;
+  --text: #1b2330;
+  --muted: #6b7686;
+  --accent: #2f6fed;
+  --accent-soft: #e6eefe;
+  --border: #e3e6eb;
+  --danger: #c4372b;
+  --ok: #2fb36d;
+  --radius: 10px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f141b;
+    --panel: #161d26;
+    --sidebar: #0b1016;
+    --text: #e6ebf2;
+    --muted: #8b97a8;
+    --accent-soft: #1d2c47;
+    --border: #253041;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; background: var(--bg); }
+[hidden] { display: none !important; }
+
+button {
+  font: inherit; border: 0; border-radius: 8px; padding: 0.55rem 1rem;
+  background: var(--accent); color: #fff; cursor: pointer;
+}
+button:hover { filter: brightness(1.08); }
+button.ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+input {
+  font: inherit; color: inherit; background: var(--panel);
+  border: 1px solid var(--border); border-radius: 8px; padding: 0.55rem 0.75rem; min-width: 0;
+}
+input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+/* ---------- login */
+.login { min-height: 100%; display: grid; place-items: center; padding: 16px; }
+.card {
+  width: min(380px, 100%); background: var(--panel); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.75rem; display: grid; gap: 0.6rem;
+}
+.card h1 { margin: 0; font-size: 1.4rem; }
+.card label { font-size: 0.85rem; color: var(--muted); }
+.muted { color: var(--muted); margin: 0 0 0.5rem; font-size: 0.9rem; }
+.status { min-height: 1.2em; margin: 0; font-size: 0.85rem; color: var(--danger); }
+
+/* ---------- layout */
+.app { height: 100%; display: grid; grid-template-columns: 240px 1fr; }
+.sidebar {
+  background: var(--sidebar); color: var(--sidebar-text); padding: 1rem;
+  display: flex; flex-direction: column; gap: 0.5rem; overflow-y: auto;
+}
+.sidebar h2 {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--sidebar-muted); margin: 1rem 0 0.25rem;
+}
+.me { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--danger); }
+.dot.online { background: var(--ok); }
+
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.list li { padding: 0.35rem 0.5rem; border-radius: 6px; cursor: pointer; }
+.list li:hover { background: rgba(255, 255, 255, 0.06); }
+.list li.active { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.members li { cursor: default; display: flex; gap: 0.5rem; align-items: center; }
+.members li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+
+.join { display: flex; gap: 0.35rem; }
+.join input { flex: 1; background: rgba(255,255,255,0.06); border-color: transparent; color: #fff; }
+.join button { padding: 0.4rem 0.75rem; }
+
+/* ---------- chat */
+.chat { display: flex; flex-direction: column; min-height: 0; background: var(--panel); position: relative; }
+.chat-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border);
+}
+.chat-header h2 { margin: 0; font-size: 1.05rem; }
+.messages { flex: 1; overflow-y: auto; list-style: none; margin: 0; padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.msg { max-width: 70ch; }
+.msg .meta { font-size: 0.78rem; color: var(--muted); margin-bottom: 2px; }
+.msg .meta b { color: var(--text); font-weight: 600; margin-right: 0.4rem; }
+.msg .body { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.4; }
+.msg.mine .meta b { color: var(--accent); }
+.system { font-size: 0.8rem; color: var(--muted); text-align: center; }
+.typing { height: 1.3em; margin: 0; padding: 0 1.25rem; font-size: 0.8rem; color: var(--muted); font-style: italic; }
+.composer { display: flex; gap: 0.5rem; padding: 0.75rem 1.25rem 1rem; }
+.composer input { flex: 1; }
+.toast {
+  position: absolute; top: 3.5rem; right: 1rem; margin: 0; padding: 0.5rem 0.8rem;
+  border-radius: 8px; background: var(--danger); color: #fff; font-size: 0.85rem;
+}
+
+@media (max-width: 680px) {
+  .app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .sidebar { max-height: 38vh; }
+  .chat-header, .messages, .composer { padding-left: 16px; padding-right: 16px; }
+}
